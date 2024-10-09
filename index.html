@@ -4,23 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Login</title>
+    <!-- Google Font: Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
         /* General Styles */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
             text-align: center;
             padding: 50px;
         }
         .login-container {
             background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px 0px #ccc;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px 0px #999;
             display: inline-block;
             width: 100%;
             max-width: 400px;
             margin: auto;
+        }
+        h2 {
+            font-weight: bold;
+            margin-bottom: 20px;
         }
         label, input {
             display: block;
@@ -28,47 +34,59 @@
             width: 100%;
         }
         input {
-            padding: 8px;
+            padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
         button {
-            padding: 10px 20px;
-            background-color: #28a745;
+            padding: 12px;
+            background-color: #007bff;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             width: 100%;
+            font-weight: bold;
         }
         button:hover {
-            background-color: #218838;
+            background-color: #0056b3;
         }
         .message {
             color: red;
             font-weight: bold;
         }
 
+        /* Adding Logo */
+        .logo {
+            margin-bottom: 15px;
+        }
+
         /* Responsive Design */
         @media (max-width: 600px) {
             .login-container {
-                padding: 15px;
+                padding: 20px;
             }
             input, button {
                 font-size: 16px;
+            }
+            h2 {
+                font-size: 24px;
             }
         }
     </style>
 </head>
 <body>
     <div class="login-container">
+        <!-- Logo Section -->
+        <img src="logo-quicktech" alt="Logo" class="logo" width="100" height="100">
+        
         <h2>Student Login</h2>
-        <form id="loginForm">
+        <form id="loginForm" autocomplete="off">
             <label for="rollNumber">Roll Number:</label>
-            <input type="text" id="rollNumber" name="rollNumber" required>
+            <input type="text" id="rollNumber" name="rollNumber" required autocomplete="off">
 
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password" required autocomplete="off">
 
             <button type="submit">Login</button>
         </form>
