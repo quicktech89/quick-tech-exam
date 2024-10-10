@@ -12,65 +12,112 @@
             font-family: 'Montserrat', sans-serif;
             background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
             text-align: center;
-            padding: 50px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
         .login-container {
             background-color: white;
-            padding: 30px;
+            padding: 20px;
             border-radius: 10px;
-            box-shadow: 0px 0px 15px 0px #999;
-            display: inline-block;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
             width: 100%;
-            max-width: 400px;
-            margin: auto;
+            max-width: 350px;
+            margin-bottom: 50px;
         }
         h2 {
             font-weight: bold;
             margin-bottom: 20px;
         }
-        label, input {
+        label {
             display: block;
-            margin: 10px 0;
-            width: 100%;
+            margin: 10px 0 5px;
+            font-size: 14px;
         }
         input {
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
         }
+
+        /* Password visibility toggle */
+        .password-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .password-container input {
+            padding-right: 40px;
+        }
+        .password-container i {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #ccc;
+        }
+
+        /* Custom Button with Gradient and Left-to-Right Transition */
         button {
-            padding: 12px;
-            background-color: #007bff;
+            padding: 15px;
+            background: linear-gradient(135deg, #32a852, #0084ff); /* Blue to green gradient */
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             width: 100%;
             font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.4s ease;
         }
         button:hover {
-            background-color: #0056b3;
-        }
-        .message {
-            color: red;
-            font-weight: bold;
+            background: linear-gradient(to right, #0084ff, #32a852); /* Left to right gradient transition */
         }
 
-        /* Adding Logo */
-        .logo {
-            margin-bottom: 15px;
+        /* Error Message Styling */
+        .error-message {
+            color: red;
+            font-weight: bold;
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 10px;
+            display: none; /* Initially hidden */
+        }
+
+        /* Spinner Animation (Using Company Logo) */
+        .spinner-container {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .spinner-logo {
+            animation: spin 1.5s linear infinite; /* Logo will spin for 1.5s */
+            width: 80px;
+            height: 80px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Responsive Design */
         @media (max-width: 600px) {
             .login-container {
-                padding: 20px;
+                padding: 15px;
+                max-width: 300px;
             }
             input, button {
-                font-size: 16px;
+                font-size: 14px;
             }
             h2 {
-                font-size: 24px;
+                font-size: 22px;
             }
         }
     </style>
@@ -78,21 +125,68 @@
 <body>
     <div class="login-container">
         <!-- Logo Section -->
-        <img src="images/logo-quicktech.png" alt="Logo" class="logo" width="100" height="100">
+        <img src="logo-quicktech.png" alt="Logo" class="logo" width="80" height="80">
         
         <h2>Student Login</h2>
         <form id="loginForm" autocomplete="off">
+            <!-- Roll Number Field -->
             <label for="rollNumber">Roll Number:</label>
             <input type="text" id="rollNumber" name="rollNumber" required autocomplete="off">
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required autocomplete="off">
+            <!-- Password Field with Visibility Toggle -->
+            <div class="password-container">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required autocomplete="off">
+                <i class="fas fa-eye" id="togglePassword"></i>
+            </div>
 
+            <!-- Custom Animated Login Button -->
             <button type="submit">Login</button>
         </form>
-        <div id="errorMessage" class="message"></div>
+
+        <!-- Error Message -->
+        <div class="error-message" id="errorMessage">Sorry, your credentials are wrong.</div>
+
+        <!-- Spinner Animation (Logo) for Successful Login -->
+        <div class="spinner-container" id="spinnerContainer">
+            <img src="images/logo-quicktech.png" alt="Loading" class="spinner-logo">
+        </div>
     </div>
 
+    <!-- Connect JavaScript file -->
     <script src="script.js"></script>
+    <script>
+        // JavaScript to toggle password visibility
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+
+        togglePassword.addEventListener('click', function () {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        // Show error message if credentials are wrong
+        const form = document.getElementById('loginForm');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const isCredentialsCorrect = false; // Simulating wrong credentials for now
+
+            if (!isCredentialsCorrect) {
+                document.getElementById('errorMessage').style.display = 'block'; // Show error message
+            } else {
+                // Correct credentials - show spinner and let script.js handle login
+                document.querySelector('.login-container').style.display = 'none';
+                document.getElementById('spinnerContainer').style.display = 'flex';
+
+                // Simulate delay with spinner (1.5 seconds), then call your existing logic
+                setTimeout(() => {
+                    // Trigger script.js logic for successful login
+                    // Example: window.location.href = 'exam-start.html'; // Placeholder for script.js logic
+                }, 1500);
+            }
+        });
+    </script>
 </body>
 </html>
