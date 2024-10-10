@@ -6,6 +6,7 @@
     <title>Student Login</title>
     <!-- Google Font: Montserrat -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script> <!-- GSAP for animations -->
     <style>
         /* General Styles */
         body {
@@ -31,11 +32,13 @@
         h2 {
             font-weight: bold;
             margin-bottom: 20px;
+            opacity: 0;
         }
         label {
             display: block;
             margin: 10px 0 5px;
             font-size: 14px;
+            opacity: 0;
         }
         input {
             padding: 10px;
@@ -44,6 +47,7 @@
             font-size: 16px;
             width: 100%;
             box-sizing: border-box;
+            opacity: 0;
         }
 
         /* Password visibility toggle */
@@ -76,6 +80,7 @@
             position: relative;
             overflow: hidden;
             transition: background 0.4s ease;
+            opacity: 0;
         }
         button:hover {
             background: linear-gradient(to right, #0084ff, #32a852); /* Left to right gradient transition */
@@ -95,19 +100,30 @@
             display: none;
             justify-content: center;
             align-items: center;
-            margin-top: 20px;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.8); /* Light overlay */
         }
         .spinner-logo {
-            animation: spin 1.5s linear infinite; /* Logo will spin for 1.5s */
-            width: 80px;
-            height: 80px;
+            width: 120px;
+            height: 120px;
         }
-        @keyframes spin {
+
+        /* Outline animation */
+        .spinner-outline {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 5px solid #f00; /* Red outline */
+            border-radius: 50%;
+            animation: rotateOutline 2s linear infinite;
+        }
+
+        @keyframes rotateOutline {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
-        /* Responsive Design */
+        /* Mobile Optimization */
         @media (max-width: 600px) {
             .login-container {
                 padding: 15px;
@@ -118,6 +134,9 @@
             }
             h2 {
                 font-size: 22px;
+            }
+            label, .instructions p, ul {
+                font-size: 13px;
             }
         }
     </style>
@@ -145,48 +164,20 @@
         </form>
 
         <!-- Error Message -->
-        <div class="error-message" id="errorMessage">Sorry, your Roll number or Password are wrong.</div>
+        <div class="error-message" id="errorMessage">Sorry, your credentials are wrong.</div>
 
         <!-- Spinner Animation (Logo) for Successful Login -->
         <div class="spinner-container" id="spinnerContainer">
+            <div class="spinner-outline"></div>
             <img src="images/logo-quicktech.png" alt="Loading" class="spinner-logo">
         </div>
     </div>
 
-    <!-- Connect JavaScript file -->
     <script src="script.js"></script>
+
     <script>
-        // JavaScript to toggle password visibility
-        const togglePassword = document.querySelector('#togglePassword');
-        const password = document.querySelector('#password');
-
-        togglePassword.addEventListener('click', function () {
-            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-            password.setAttribute('type', type);
-            this.classList.toggle('fa-eye-slash');
-        });
-
-        // Show error message if credentials are wrong
-        const form = document.getElementById('loginForm');
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const isCredentialsCorrect = false; // Simulating wrong credentials for now
-
-            if (!isCredentialsCorrect) {
-                document.getElementById('errorMessage').style.display = 'block'; // Show error message
-            } else {
-                // Correct credentials - show spinner and let script.js handle login
-                document.querySelector('.login-container').style.display = 'none';
-                document.getElementById('spinnerContainer').style.display = 'flex';
-
-                // Simulate delay with spinner (1.5 seconds), then call your existing logic
-                setTimeout(() => {
-                    // Trigger script.js logic for successful login
-                    // Example: window.location.href = 'exam-start.html'; // Placeholder for script.js logic
-                }, 1500);
-            }
-        });
+        // Add animations on page load using GSAP
+        gsap.to('h2, label, input, button', {opacity: 1, duration: 1, stagger: 0.2}); // Fading effect
     </script>
 </body>
 </html>
