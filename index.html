@@ -4,14 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Login</title>
-    <!-- Google Font: Montserrat -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script> <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <link rel="icon" href="images/logo-quicktech.png"> 
     <style>
-        /* General Styles */
         body {
             font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
             text-align: center;
             padding: 20px;
             display: flex;
@@ -19,44 +18,48 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            overflow: hidden;
         }
+
         .login-container {
-            background-color: white;
-            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 30px;
             border-radius: 10px;
             box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
             width: 100%;
             max-width: 350px;
-            margin-bottom: 50px;
+            display: grid;
+            gap: 15px;
         }
+
         h2 {
             font-weight: bold;
             margin-bottom: 20px;
             opacity: 0;
         }
-        label {
+
+        label, input {
             display: block;
-            margin: 10px 0 5px;
-            font-size: 14px;
+            width: 100%;
+            margin-bottom: 10px;
+            color: #333;
             opacity: 0;
         }
+
         input {
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
-            width: 100%;
             box-sizing: border-box;
-            opacity: 0;
         }
 
-        /* Password visibility toggle */
+        input:focus {
+            border-color: #0084ff;
+        }
+
         .password-container {
             position: relative;
-            margin-bottom: 20px;
-        }
-        .password-container input {
-            padding-right: 40px;
         }
         .password-container i {
             position: absolute;
@@ -67,10 +70,9 @@
             color: #ccc;
         }
 
-        /* Custom Button with Gradient and Left-to-Right Transition */
         button {
             padding: 15px;
-            background: linear-gradient(135deg, #32a852, #0084ff); /* Blue to green gradient */
+            background: linear-gradient(135deg, #32a852, #0084ff);
             color: white;
             border: none;
             border-radius: 5px;
@@ -78,49 +80,76 @@
             width: 100%;
             font-weight: bold;
             position: relative;
-            overflow: hidden;
-            transition: background 0.4s ease;
+            transition: background 0.4s ease, box-shadow 0.3s ease;
+            box-sizing: border-box;
             opacity: 0;
         }
         button:hover {
-            background: linear-gradient(to right, #0084ff, #32a852); /* Left to right gradient transition */
+            background: linear-gradient(to right, #0084ff, #32a852);
+            box-shadow: 0px 10px 25px rgba(0, 132, 255, 0.5);
         }
 
-        /* Error Message Styling */
         .error-message {
             color: red;
             font-weight: bold;
-            font-family: 'Montserrat', sans-serif;
             margin-top: 10px;
-            display: none; /* Initially hidden */
-        }
-
-        /* Spinner Animation (Using Company Logo) */
-        .spinner-container {
             display: none;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: rgba(255, 255, 255, 0.8); /* Light overlay */
-        }
-        .spinner-logo {
-            width: 120px;
-            height: 120px;
         }
 
-        /* Outline animation */
-        .spinner-outline {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            border: 5px solid #f00; /* Red outline */
-            border-radius: 50%;
-            animation: rotateOutline 2s linear infinite;
+        .forgot-password {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #0084ff;
+            text-decoration: none;
+            opacity: 0;
+        }
+        .forgot-password:hover {
+            text-decoration: underline;
         }
 
-        @keyframes rotateOutline {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        /* Pop-up Styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            width: 350px; /* Increased width for more space */
+            text-align: center;
+        }
+        .popup h3 {
+            margin-bottom: 10px;
+        }
+        .popup .animated-icon {
+            width: 150px; /* Increased icon size */
+            height: 150px;
+            margin-bottom: 15px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .back-button {
+            padding: 10px;
+            background-color: #0084ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            opacity: 0; /* Hidden initially */
+            transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth transition */
+            transform: scale(0.9); /* Slightly smaller initially */
+        }
+        .back-button.show {
+            opacity: 1; /* Make visible */
+            transform: scale(1); /* Scale to full size */
+        }
+        .back-button:hover {
+            background-color: #006bb3;
         }
 
         /* Mobile Optimization */
@@ -135,49 +164,64 @@
             h2 {
                 font-size: 22px;
             }
-            label, .instructions p, ul {
-                font-size: 13px;
-            }
         }
     </style>
 </head>
 <body>
+
     <div class="login-container">
-        <!-- Logo Section -->
-        <img src="images/logo-quicktech.png" alt="Logo" class="logo" width="80" height="80">
-        
+        <img src="images/logo-quicktech.png" alt="Logo" class="logo" width="80" height="80" style="display: block; margin: 0 auto;">
         <h2>Student Login</h2>
         <form id="loginForm" autocomplete="off">
-            <!-- Roll Number Field -->
             <label for="rollNumber">Roll Number:</label>
-            <input type="text" id="rollNumber" name="rollNumber" required autocomplete="off">
+            <input type="text" id="rollNumber" name="rollNumber" required>
 
-            <!-- Password Field with Visibility Toggle -->
             <div class="password-container">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required autocomplete="off">
+                <input type="password" id="password" name="password" required>
                 <i class="fas fa-eye" id="togglePassword"></i>
             </div>
 
-            <!-- Custom Animated Login Button -->
             <button type="submit">Login</button>
         </form>
 
-        <!-- Error Message -->
-        <div class="error-message" id="errorMessage">Sorry, your credentials are wrong.</div>
-
-        <!-- Spinner Animation (Logo) for Successful Login -->
-        <div class="spinner-container" id="spinnerContainer">
-            <div class="spinner-outline"></div>
-            <img src="images/logo-quicktech.png" alt="Loading" class="spinner-logo">
-        </div>
+        <div class="error-message" id="errorMessage"></div>
+        <a href="#" class="forgot-password" id="forgotPasswordLink">Forgot Password?</a>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Pop-up Message -->
+    <div class="popup" id="forgotPasswordPopup">
+        <lottie-player src="https://lottie.host/825c3e95-4aa6-4847-b3bf-b3cc856064ff/y9fGtzbYns.json" background="transparent" speed="1" class="animated-icon" autoplay></lottie-player>
+        <h3>Please contact your instructor if you have forgotten the password.</h3>
+        <button class="back-button" id="backButton">Back</button>
+    </div>
+
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="script.js"></script> <!-- Make sure to include your script.js file here -->
 
     <script>
-        // Add animations on page load using GSAP
-        gsap.to('h2, label, input, button', {opacity: 1, duration: 1, stagger: 0.2}); // Fading effect
+        // Show pop-up when "Forgot Password?" is clicked
+        document.getElementById('forgotPasswordLink').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default link behavior
+            document.getElementById('forgotPasswordPopup').style.display = 'block'; // Show pop-up
+            document.querySelector('.login-container').style.display = 'none'; // Hide login container
+
+            // Show the "Back" button with transition after 1-3 seconds
+            setTimeout(function() {
+                document.getElementById('backButton').classList.add('show'); // Add show class
+            }, 2000); // Adjust this time (in milliseconds) as needed (2 seconds delay)
+        });
+
+        // Hide pop-up and show login container when "Back" is clicked
+        document.getElementById('backButton').addEventListener('click', function() {
+            document.getElementById('forgotPasswordPopup').style.display = 'none'; // Hide pop-up
+            document.querySelector('.login-container').style.display = 'grid'; // Show login container
+            this.classList.remove('show'); // Hide Back button with transition
+        });
+
+        // Add animations on page load
+        gsap.to('h2, label, input, button, .forgot-password', {opacity: 1, duration: 1, stagger: 0.2});
     </script>
 </body>
 </html>
