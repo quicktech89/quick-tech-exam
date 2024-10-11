@@ -16,7 +16,7 @@ const completedExamsKey = 'completedExams';
 const loginSuccessSound = new Audio('sounds/custom-sound.mp3'); // Change to your custom sound
 
 // Maintenance Mode Flag
-let isUnderMaintenance = false; // Change to true when updating credentials
+let isUnderMaintenance = true; // Change to true when updating credentials
 
 // Function to check if the student has already completed the exam
 function hasCompletedExam(rollNumber) {
