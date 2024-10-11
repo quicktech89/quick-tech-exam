@@ -1,7 +1,7 @@
 // Simple object to hold student credentials and track login status
 const students = {
-    "101": { password: "pass101", name: "John Doe", formUrl: "https://forms.gle/sampleForm1" },
-    "601": { password: "pass601", name: "Jane Smith", formUrl: "https://forms.gle/sampleForm2" },
+    "206921": { password: "369256", name: "Satvik Singh", formUrl: "https://forms.office.com/r/3Maxvpq0N3" },
+    "567289": { password: "256916", name: "Shatyam Singh", formUrl: "https://forms.office.com/r/3Maxvpq0N3" },
     // Add more students as required
 };
 
