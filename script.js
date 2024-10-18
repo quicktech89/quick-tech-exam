@@ -2,6 +2,7 @@
 const students = {
     "206921": { password: "369256", name: "Satvik Singh", formUrl: "https://forms.office.com/r/3Maxvpq0N3" },
     "567289": { password: "256916", name: "Shatyam Singh", formUrl: "https://forms.office.com/r/3Maxvpq0N3" },
+    "672882": { password: "253973", name: "Shatyam Singh", formUrl: "https://forms.office.com/r/3Maxvpq0N3" },
     // Add more students as required
 };
 
