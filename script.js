@@ -1,8 +1,8 @@
 // Simple object to hold student credentials and track login status
 const students = {
-    "206921": { password: "369256", name: "Satvik Singh", formUrl: "https://forms.office.com/r/3Maxvpq0N3" },
-    "567289": { password: "256916", name: "Shatyam Singh", formUrl: "https://forms.office.com/r/3Maxvpq0N3" },
-    "672882": { password: "253973", name: "Aradhya Singh", formUrl: "https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__XwigcNUMjhVUDMwQ01BM0ZBWjlCWjBIUEtITFM4MS4u" },
+    "283928": { password: "382828", name: "Uday Sharma", formUrl: "https://w7oykthgwiit5d1o7uikrejsin50udgq.vercel.app/" },
+    "622829": { password: "728919", name: "Tech Editor", formUrl: "" },
+    "672882": { password: "253973", name: "", formUrl: "" },
     // Add more students as required
 };
 
