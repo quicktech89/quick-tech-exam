@@ -107,7 +107,7 @@
             text-decoration: underline;
         }
 
-        /* Pop-up Styles */
+     
         .popup {
             display: none;
             position: fixed;
@@ -119,26 +119,26 @@
             border-radius: 10px;
             box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
             z-index: 1000;
-            width: 350px; /* Increased width for more space */
+            width: 350px; 
             text-align: center;
         }
         .popup h3 {
             margin-bottom: 10px;
         }
         .popup .animated-icon {
-            width: 150px; /* Increased icon size */
+            width: 150px;
             height: 150px;
             margin-bottom: 15px;
             display: block;
             margin-left: auto;
             margin-right: auto;
-            opacity: 0; /* Hidden initially */
-            transform: scale(0.8); /* Slightly smaller initially */
-            transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth transition */
+            opacity: 0; 
+            transform: scale(0.8); 
+            transition: opacity 0.5s ease, transform 0.5s ease; 
         }
         .popup.show .animated-icon {
-            opacity: 1; /* Make visible */
-            transform: scale(1); /* Scale to full size */
+            opacity: 1;
+            transform: scale(1); 
         }
         .back-button {
             padding: 10px;
@@ -147,19 +147,19 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            opacity: 0; /* Hidden initially */
-            transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth transition */
-            transform: scale(0.9); /* Slightly smaller initially */
+            opacity: 0; 
+            transition: opacity 0.5s ease, transform 0.5s ease; 
+            transform: scale(0.9); 
         }
         .back-button.show {
-            opacity: 1; /* Make visible */
-            transform: scale(1); /* Scale to full size */
+            opacity: 1; 
+            transform: scale(1); 
         }
         .back-button:hover {
             background-color: #006bb3;
         }
 
-        /* Mobile Optimization */
+     
         @media (max-width: 600px) {
             .login-container {
                 padding: 15px;
@@ -196,7 +196,7 @@
         <a href="#" class="forgot-password" id="forgotPasswordLink">Forgot Password?</a>
     </div>
 
-    <!-- Pop-up Message -->
+  
     <div class="popup" id="forgotPasswordPopup">
         <lottie-player src="https://lottie.host/825c3e95-4aa6-4847-b3bf-b3cc856064ff/y9fGtzbYns.json" background="transparent" speed="1" class="animated-icon" autoplay></lottie-player>
         <h3>Please contact your instructor if you have forgotten the password.</h3>
@@ -205,42 +205,42 @@
 
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
-    <script src="script.js"></script> <!-- Make sure to include your script.js file here -->
+    <script src="script.js"></script>
 
     <script>
-        // Show pop-up when "Forgot Password?" is clicked
+       
         document.getElementById('forgotPasswordLink').addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent default link behavior
-            document.getElementById('forgotPasswordPopup').style.display = 'block'; // Show pop-up
-            document.querySelector('.login-container').style.display = 'none'; // Hide login container
+            event.preventDefault();
+            document.getElementById('forgotPasswordPopup').style.display = 'block';
+            document.querySelector('.login-container').style.display = 'none';
 
-            // Show the animated icon and "Back" button with transition
+           
             setTimeout(function() {
                 document.getElementById('forgotPasswordPopup').classList.add('show');
                 document.querySelector('.animated-icon').style.opacity = '1';
                 document.querySelector('.animated-icon').style.transform = 'scale(1)';
-            }, 200); // Slight delay for smooth appearance
+            }, 200);
 
             setTimeout(function() {
-                document.getElementById('backButton').classList.add('show'); // Add show class
-            }, 2000); // Adjust this time (in milliseconds) as needed (2 seconds delay)
+                document.getElementById('backButton').classList.add('show'); 
+            }, 2000); 
         });
 
-        // Hide pop-up and show login container when "Back" is clicked
+        
         document.getElementById('backButton').addEventListener('click', function() {
-            document.getElementById('forgotPasswordPopup').style.display = 'none'; // Hide pop-up
-            document.querySelector('.login-container').style.display = 'grid'; // Show login container
-            this.classList.remove('show'); // Hide Back button with transition
-            document.querySelector('.animated-icon').style.opacity = '0'; // Hide the animated icon
-            document.querySelector('.animated-icon').style.transform = 'scale(0.8)'; // Scale down the icon
+            document.getElementById('forgotPasswordPopup').style.display = 'none'; 
+            document.querySelector('.login-container').style.display = 'grid'; 
+            this.classList.remove('show'); 
+            document.querySelector('.animated-icon').style.opacity = '0'; 
+            document.querySelector('.animated-icon').style.transform = 'scale(0.8)'; 
         });
 
-        // Add animations on page load
+   
         gsap.to('h2, label, input, button, .forgot-password', {
             opacity: 1,
             duration: 1,
             stagger: 0.2,
-            delay: 0.5 // Start after a brief delay
+            delay: 0.5 
         });
     </script>
 </body>
